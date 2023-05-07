@@ -1,8 +1,7 @@
 import Database from "better-sqlite3";
 import type {Product, Filter, ProductsQuery} from "./types";
 
-const PATH = (__SVELTEKIT_DEV__) ? './data/products.db' : '/data/products.db';
-const db = new Database(PATH, { verbose: console.log, fileMustExist: true });
+const db = new Database('./data/products.db', { verbose: console.log, fileMustExist: true });
 db.pragma('journal_mode = WAL');
 
 export function getProducts(filter: Filter = {}, start = 0, limit = 24): Product[] {
