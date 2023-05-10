@@ -19,7 +19,9 @@
 </div>
 
 <script lang="ts">
-  export let data;
+  import type {Product} from "$lib/server/db/types";
+
+  export let data: Product[];
 </script>
 
 <style lang="sass">
@@ -27,15 +29,15 @@
     display: grid
     grid-template-columns: repeat(auto-fit, minmax(256px, 1fr))
     margin: 2rem 0
-    border: 1px solid #ddd
-    border-radius: 1rem
-    overflow: hidden
+    gap: 2rem
   .item
     text-decoration: none
     padding: 1.5rem
     overflow: hidden
     border: 1px solid #ddd
+    border-radius: 0.5rem
     max-width: 384px
+    justify-content: flex-start
     & > div
       display: flex
       flex-direction: column
