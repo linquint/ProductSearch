@@ -1,6 +1,10 @@
 <script lang="ts">
   import type {PageData} from './$types';
   export let data: PageData;
+
+  const clearString = (str: string): string => {
+    return encodeURIComponent(str);
+  }
 </script>
 
 <svelte:head>
@@ -14,28 +18,28 @@
     <div class="categories">
       <a href="/">Products</a>
       <span>>></span>
-      <a href={`/?category=${data.product.Category}`}>{data.product.Category}</a>
-      {#if data.product.SubCategory}
+      <a href={`/?category=${clearString(data.product.category)}`}>{data.product.category}</a>
+      {#if data.product.subcategory}
         <span>>></span>
-        <a href={`/?subcategory=${data.product.SubCategory}`}>{data.product.SubCategory}</a>
+        <a href={`/?subcategory=${clearString(data.product.subcategory)}`}>{data.product.subcategory}</a>
       {/if}
     </div>
     <div class="item-details-row">
-      <img src={data.product.Image_Url} alt={data.product.ProductName}>
+      <img src={data.product.imageUrl} alt={data.product.productName}>
       <div>
-        <span class="item-brand">{data.product.Brand}</span>
-        <span class="item-title">{data.product.ProductName}</span>
+        <span class="item-brand">{data.product.brand}</span>
+        <span class="item-title">{data.product.productName}</span>
 
         <div class="item-details-prices">
-          <span class={`item-details-price ${!(data.product.Price === data.product.DiscountPrice) ? 'item-details-price-old' : ''}`}>
-            €{(data.product.Price * 0.011).toFixed(2)}
+          <span class={`item-details-price ${!(data.product.price === data.product.discountPrice) ? 'item-details-price-old' : ''}`}>
+            €{(data.product.price * 0.011).toFixed(2)}
           </span>
-          {#if !(data.product.Price === data.product.DiscountPrice)}
-            <span class="item-details-sale">€{(data.product.DiscountPrice * 0.011).toFixed(2)}</span>
+          {#if !(data.product.price === data.product.discountPrice)}
+            <span class="item-details-sale">€{(data.product.discountPrice * 0.011).toFixed(2)}</span>
           {/if}
         </div>
 
-        <span class="item-details-quantity">Quantity: <strong>{data.product.Quantity}</strong></span>
+        <span class="item-details-quantity">Quantity: <strong>{data.product.quantity}</strong></span>
       </div>
     </div>
   {/if}
