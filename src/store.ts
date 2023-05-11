@@ -1,12 +1,12 @@
 import { writable, derived, type Writable } from 'svelte/store';
-import type {AppliedFilter, Product, SearchFilters} from "$lib/server/db/types";
+import type {SearchFilters, Filter, ProductType} from "$lib/server/db/types";
 
-export const productsList: Writable<Product[]> = writable();
+export const productsList: Writable<ProductType[]> = writable();
 export const searchFilters: Writable<SearchFilters> = writable();
-export const appliedFilters: Writable<AppliedFilter> = writable({
-  brand: undefined,
-  category: undefined,
-  subcategory: undefined,
+export const appliedFilters: Writable<Filter> = writable({
+  brandId: undefined,
+  categoryId: undefined,
+  subcategoryId: undefined,
 });
 export const productPage: Writable<number> = writable(0);
 
@@ -44,7 +44,7 @@ export const priceRange = derived(searchFilters, $searchFilters => {
   }
   return { min: 0, max: 0 };
 });
-export const brandFilter = derived(appliedFilters, $appliedFilters => $appliedFilters.brand);
-export const categoryFilter = derived(appliedFilters, $appliedFilters => $appliedFilters.category);
-export const subcategoryFilter = derived(appliedFilters, $appliedFilters => $appliedFilters.subcategory);
+export const brandFilter = derived(appliedFilters, $appliedFilters => $appliedFilters.brandId);
+export const categoryFilter = derived(appliedFilters, $appliedFilters => $appliedFilters.categoryId);
+export const subcategoryFilter = derived(appliedFilters, $appliedFilters => $appliedFilters.subcategoryId);
 export const productStart = derived(productPage, $productPage => $productPage * 24);

@@ -3,17 +3,20 @@ import {getProducts} from "$lib/server/db";
 import type {RequestHandler} from "@sveltejs/kit";
 import {json} from "@sveltejs/kit";
 
-export const GET = (({url}) => {
+export const GET = (async ({url}) => {
+  const query = url.searchParams.get('q')?.toString() || '';
   const brand = url.searchParams.get('brand')?.toString();
   const category = url.searchParams.get('category')?.toString();
   const subcategory = url.searchParams.get('subcategory')?.toString();
-  const start = parseInt(url.searchParams.get('start') || '0')
+  const start = parseInt(url.searchParams.get('start')?.toString() || '0');
   const filter: Filter = {
-    Brand: brand,
-    Category: category,
-    SubCategory: subcategory,
+    brandId: brand ? parseInt(brand) : undefined,
+    categoryId: category ? parseInt(category) : undefined,
+    subcategoryId: subcategory ? parseInt(subcategory) : undefined,
   };
 
-  const products = getProducts(filter, start);
-  return json(products);
+  const products = await getProducts(query, filter, start);
+  return new Response(JSON.stringify(products), {
+    headers: { "Content-Type": "application/json" },
+  });
 }) satisfies RequestHandler;

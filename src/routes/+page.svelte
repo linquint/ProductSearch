@@ -81,7 +81,7 @@
 </div>
 
 {#if $productsLoaded}
-  <Items data={$products} />
+  <Items />
 {/if}
 
 <button style="padding-bottom: 20rem" type="button" on:click|preventDefault={loadMoreProducts}>Show more...</button>
