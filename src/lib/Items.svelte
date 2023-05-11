@@ -1,16 +1,16 @@
 <div class="items-list">
-  {#each data as product}
+  {#each $products as product}
     <a href={`/product/${product.id}`} class="item">
       <div>
-        <img src={product.Image_Url} alt={product.ProductName}>
-        <span class="item-brand">{product.Brand}</span>
-        <span class="item-title">{product.ProductName}</span>
+        <img use:lazyLoad={product.imageUrl} alt={product.productName}>
+        <span class="item-brand">{product["brand.name"]}</span>
+        <span class="item-title">{product.productName}</span>
         <div class="item-prices">
-          <span class={`item-price ${!(product.Price === product.DiscountPrice) ? 'item-price-old' : ''}`}>
-            €{(product.Price * 0.011).toFixed(2)}
+          <span class={`item-price ${!(product.price === product.discountPrice) ? 'item-price-old' : ''}`}>
+            €{product.price.toFixed(2)}
           </span>
-          {#if !(product.Price === product.DiscountPrice)}
-            <span class="item-sale">€{(product.DiscountPrice * 0.011).toFixed(2)}</span>
+          {#if !(product.price === product.discountPrice)}
+            <span class="item-sale">€{product.discountPrice.toFixed(2)}</span>
           {/if}
         </div>
       </div>
@@ -19,9 +19,10 @@
 </div>
 
 <script lang="ts">
-  import type {Product} from "$lib/server/db/types";
+  import { lazyLoad } from "$lib/functions/lazyLoad.js";
+  import {products} from "../store";
 
-  export let data: Product[];
+  console.log($products)
 </script>
 
 <style lang="sass">

@@ -8,34 +8,38 @@
 </script>
 
 <svelte:head>
-  <title>
-    {data.product.ProductName}
-  </title>
+  {#if data && data.product}
+    <title>
+      {data.product.productName}
+    </title>
+  {:else}
+    <title>Product not found</title>
+  {/if}
 </svelte:head>
 
 <div class="item-details">
-  {#if data.product}
+  {#if data && data.product}
     <div class="categories">
       <a href="/">Products</a>
       <span>>></span>
-      <a href={`/?category=${clearString(data.product.category)}`}>{data.product.category}</a>
+      <a href={`/?category=${clearString(data.product.category.name)}`}>{data.product.category.name}</a>
       {#if data.product.subcategory}
         <span>>></span>
-        <a href={`/?subcategory=${clearString(data.product.subcategory)}`}>{data.product.subcategory}</a>
+        <a href={`/?subcategory=${clearString(data.product.subcategory.name)}`}>{data.product.subcategory.name}</a>
       {/if}
     </div>
     <div class="item-details-row">
       <img src={data.product.imageUrl} alt={data.product.productName}>
       <div>
-        <span class="item-brand">{data.product.brand}</span>
+        <span class="item-brand">{data.product.brand.name}</span>
         <span class="item-title">{data.product.productName}</span>
 
         <div class="item-details-prices">
           <span class={`item-details-price ${!(data.product.price === data.product.discountPrice) ? 'item-details-price-old' : ''}`}>
-            €{(data.product.price * 0.011).toFixed(2)}
+            €{data.product.price.toFixed(2)}
           </span>
           {#if !(data.product.price === data.product.discountPrice)}
-            <span class="item-details-sale">€{(data.product.discountPrice * 0.011).toFixed(2)}</span>
+            <span class="item-details-sale">€{data.product.discountPrice.toFixed(2)}</span>
           {/if}
         </div>
 
