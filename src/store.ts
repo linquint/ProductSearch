@@ -17,7 +17,7 @@ export const productsLoaded = derived(productsList, $productsList => {
   return $productsList && $productsList.length > 0;
 });
 export const products = derived(productsList, $productsList => {
-  return $productsList;
+  return $productsList || [];
 })
 
 export const filtersLoaded = derived(searchFilters, $searchFilters => {
