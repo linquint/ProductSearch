@@ -13,6 +13,11 @@ export interface IProduct extends IProductCreate {
   id: number;
 }
 
+export interface IPriceRange extends IProduct {
+  minPrice: number;
+  maxPrice: number;
+}
+
 export interface IProductPropsCreate {
   name: string;
 }
@@ -40,10 +45,13 @@ export type Filter = {
   brandId?: number | undefined;
   categoryId?: number | undefined;
   subcategoryId?: number | undefined;
+  min?: number | undefined;
+  max?: number | undefined;
 };
 
 export type SearchFilter = {
-  title: string;
+  id: number;
+  name: string;
   count: number;
 };
 
@@ -51,6 +59,6 @@ export type SearchFilters = {
   brand: SearchFilter[];
   category: SearchFilter[];
   subcategory: SearchFilter[];
-  min_price: number;
-  max_price: number;
+  minPrice: number;
+  maxPrice: number;
 };

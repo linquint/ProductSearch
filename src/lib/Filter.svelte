@@ -6,26 +6,37 @@
       </div>
     {/if}
     {#if selected}
-      <span>{data[selected].title}</span>
-      <span>{data[selected].count}</span>
+      <span>{data[selected - 1].name}</span>
     {/if}
   </button>
   <div class="dropdown-content" class:show={dropdownOpen}>
-    {#each data as item, index}
-      <div class="dropdown-item">
-        <span>{item.title}</span>
-        <span>{item.count}</span>
-      </div>
+    {#each data as item}
+      <button class="dropdown-item" on:click={() => selectFilter(item.id)}>
+        <span>{item.name}</span>
+      </button>
     {/each}
   </div>
 </div>
 
 <script lang="ts">
   import type {SearchFilter} from "$lib/server/db/types";
+  import {appFilters, appliedFilters} from "../store";
 
   export let data: SearchFilter[] | undefined;
   export let selected: number | undefined;
+  export let filterType: number;
   let dropdownOpen = false;
+
+  function selectFilter(id: number) {
+    dropdownOpen = false;
+    const currentFilter = $appFilters;
+    switch(filterType) {
+      case 0: currentFilter.brandId = id; break;
+      case 1: currentFilter.categoryId = id; break;
+      case 2: currentFilter.subcategoryId = id; break;
+    }
+    appliedFilters.set(currentFilter);
+  }
 
   function clickOutside(node, { enabled: initialEnabled, cb }) {
     const handleOutsideClick = ({ target }) => {
@@ -50,20 +61,6 @@
   }
 </script>
 
-<!--<div class="dropdown">-->
-<!--  <button onclick="myFunction()" class="dropbtn">Dropdown</button>-->
-<!--  <div id="myDropdown" class="dropdown-content">-->
-<!--    <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">-->
-<!--    <a href="#about">About</a>-->
-<!--    <a href="#base">Base</a>-->
-<!--    <a href="#blog">Blog</a>-->
-<!--    <a href="#contact">Contact</a>-->
-<!--    <a href="#custom">Custom</a>-->
-<!--    <a href="#support">Support</a>-->
-<!--    <a href="#tools">Tools</a>-->
-<!--  </div>-->
-<!--</div>-->
-
 <style lang="sass">
   .dropdown
     position: relative
@@ -74,21 +71,13 @@
       border: 1px solid #333333
       border-radius: 0.5rem
       padding: 0.75rem 0.5rem
-      gap: 1rem
-      display: flex
-      flex-direction: row
       cursor: pointer
+      width: 192px
       span:first-child
         text-align: left
         text-overflow: clip
         word-break: break-word
-        width: 144px
-      span:nth-child(2)
-        text-align: right
-        font-weight: bold
-        width: 64px
-      div
-        width: calc(144px + 64px + 1rem)
+        width: 100%
     &-content
       display: none
       position: absolute
@@ -98,25 +87,23 @@
       border-radius: 0.5rem
       max-height: 70dvh
       overflow: auto
+      scrollbar-width: thin
+      width: 192px
     &-item
+      border: none
+      background: #f7f7f7
       padding: 0.75rem 0.5rem
       cursor: pointer
       display: flex
       flex-direction: row
       justify-content: space-between
+      width: 100%
       &:hover
         background: #dddddd
-        scrollbar-width: thin
       span:first-child
         text-align: left
         text-overflow: clip
         word-break: break-word
-        width: 144px
-        align-self: center
-      span:nth-child(2)
-        text-align: right
-        font-weight: bold
-        width: 64px
         align-self: center
   .show
     display: block
