@@ -2,9 +2,10 @@
   {#each $products as product}
     <a href={`/product/${product.id}`} class="item">
       <div>
-        <img use:lazyLoad={product.imageUrl} alt={product.productName}>
-        <span class="item-brand">{product["brand.name"]}</span>
+        <img src={product.imageUrl} alt={product.productName}>
+        <span class="item-brand">{product.brand.name}</span>
         <span class="item-title">{product.productName}</span>
+        <span>Quantity: <strong>{product.quantity}</strong></span>
         <div class="item-prices">
           <span class={`item-price ${!(product.price === product.discountPrice) ? 'item-price-old' : ''}`}>
             €{product.price.toFixed(2)}
@@ -19,7 +20,6 @@
 </div>
 
 <script lang="ts">
-  import { lazyLoad } from "$lib/functions/lazyLoad.js";
   import {products} from "../store";
 
   console.log($products)

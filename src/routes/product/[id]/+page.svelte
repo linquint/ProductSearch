@@ -8,9 +8,9 @@
 </script>
 
 <svelte:head>
-  {#if data && data.product}
+  {#if data}
     <title>
-      {data.product.productName}
+      {data.productName}
     </title>
   {:else}
     <title>Product not found</title>
@@ -18,36 +18,36 @@
 </svelte:head>
 
 <div class="item-details">
-  {#if data && data.product}
+  {#if data}
     <div class="categories">
       <a href="/">Products</a>
       <span>>></span>
-      <a href={`/?category=${clearString(data.product.category.name)}`}>{data.product.category.name}</a>
-      {#if data.product.subcategory}
+      <a href={`/?category=${clearString(data.category.name)}`}>{data.category.name}</a>
+      {#if data.subcategory.name}
         <span>>></span>
-        <a href={`/?subcategory=${clearString(data.product.subcategory.name)}`}>{data.product.subcategory.name}</a>
+        <a href={`/?subcategory=${clearString(data.subcategory.name)}`}>{data.subcategory.name}</a>
       {/if}
     </div>
     <div class="item-details-row">
-      <img src={data.product.imageUrl} alt={data.product.productName}>
+      <img src={data.imageUrl} alt={data.productName}>
       <div>
-        <span class="item-brand">{data.product.brand.name}</span>
-        <span class="item-title">{data.product.productName}</span>
+        <span class="item-brand">{data.brand.name}</span>
+        <span class="item-title">{data.productName}</span>
 
         <div class="item-details-prices">
-          <span class={`item-details-price ${!(data.product.price === data.product.discountPrice) ? 'item-details-price-old' : ''}`}>
-            €{data.product.price.toFixed(2)}
+          <span class={`item-details-price ${!(data.price === data.discountPrice) ? 'item-details-price-old' : ''}`}>
+            €{data.price.toFixed(2)}
           </span>
-          {#if !(data.product.price === data.product.discountPrice)}
-            <span class="item-details-sale">€{data.product.discountPrice.toFixed(2)}</span>
+          {#if !(data.price === data.discountPrice)}
+            <span class="item-details-sale">€{data.discountPrice.toFixed(2)}</span>
           {/if}
         </div>
 
-        <span class="item-details-quantity">Quantity: <strong>{data.product.quantity}</strong></span>
+        <span class="item-details-quantity">Quantity: <strong>{data.quantity}</strong></span>
       </div>
     </div>
   {/if}
-  {#if !data.product}
+  {#if !data}
     <h3>Item not found!</h3>
   {/if}
 </div>
