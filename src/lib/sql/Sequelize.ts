@@ -2,8 +2,8 @@ import {Model, Sequelize} from "sequelize";
 import {BrandModel, CategoryModel, ProductsModel, SubcategoryModel} from "$lib/sql/models";
 import type {IProduct, IProductCreate, IProductProps, IProductPropsCreate} from "$lib/server/db/types";
 
-const username = __SVELTEKIT_DEV__ ? 'root' : 'BossOfThisStore';
-const password = __SVELTEKIT_DEV__ ? '' : '#VeryPassword123';
+const username = __SVELTEKIT_DEV__ ? 'root' : 'root';
+const password = __SVELTEKIT_DEV__ ? 'bananas' : 'N3zinau!';
 const dialect = __SVELTEKIT_DEV__ ? 'mariadb' : 'mysql';
 
 const sql = new Sequelize('products', username, password, {

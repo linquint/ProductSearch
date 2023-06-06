@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="dataSourceStorageLocal" created-in="DB-231.8770.3">
+  <component name="dataSourceStorageLocal" created-in="DB-231.9011.35">
     <data-source name="products" uuid="ccc8b489-15be-4346-826a-d6cb8bf4bd84">
       <database-info product="SQLite" version="3.40.1" jdbc-version="4.2" driver-name="SQLite JDBC" driver-version="3.40.1.0" dbms="SQLITE" exact-version="3.40.1" exact-driver-version="3.40">
         <identifier-quote-string>&quot;</identifier-quote-string>
@@ -14,7 +14,7 @@
       </schema-mapping>
     </data-source>
     <data-source name="@digitalocean" uuid="2683d538-456e-4ef2-a7a8-16ef9cfb528f">
-      <database-info product="MySQL" version="8.0.33-0ubuntu0.22.04.1" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.25 (Revision: 08be9e9b4cba6aa115f9b27b215887af40b159e0)" dbms="MYSQL" exact-version="8.0.33" exact-driver-version="8.0">
+      <database-info product="MySQL" version="8.0.33-0ubuntu0.22.04.2" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.25 (Revision: 08be9e9b4cba6aa115f9b27b215887af40b159e0)" dbms="MYSQL" exact-version="8.0.33" exact-driver-version="8.0">
         <extra-name-characters>#@</extra-name-characters>
         <identifier-quote-string>`</identifier-quote-string>
       </database-info>
@@ -24,6 +24,7 @@
       <schema-mapping>
         <introspection-scope>
           <node kind="schema">
+            <name qname="movies" />
             <name qname="PRODUCTS" />
             <name qname="products" />
             <name qname="@" />
